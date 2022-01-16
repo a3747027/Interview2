@@ -54,14 +54,14 @@ public class SongCacheImpl implements SongCache{
         if (n==0) return ans;
         for (Object arrayAllSong : arrayAllSongs) {
             // if put in here, ex: 2 : 2 do add, 1 do add, 0 break (but wont do add at 0)
-            if (--n <=0) {
-                break;
-            }
+//            if (--n <=0) {
+//                break;
+//            }
             ans.add(arrayAllSong.toString());
             // count back, ex: 2 : do add 2, do add 1, do add 0 break???
-            //if(--n <=0) {
-            //    break;
-            //}
+            if(--n <=0) {
+                break;
+            }
         }
         return ans;
     }
