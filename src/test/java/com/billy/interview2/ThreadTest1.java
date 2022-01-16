@@ -14,26 +14,21 @@ public class ThreadTest1 implements Runnable{
 
     @Override
     public void run() {
+        cache.recordSongPlays("ID-1", 3);
+        cache.recordSongPlays("ID-1", 1);
+        cache.recordSongPlays("ID-2", 2);
+        cache.recordSongPlays("ID-3", 5);
+        assertThat(cache.getPlaysForSong("ID-1"), is(4));
+        assertThat(cache.getPlaysForSong("ID-9"), is(-1));
+        assertThat(cache.getTopNSongsPlayed(2), contains("ID-3",
+                "ID-1"));
         try {
-            cache.recordSongPlays("ID-1", 3);
-            cache.recordSongPlays("ID-1", 1);
-            cache.recordSongPlays("ID-2", 2);
-            cache.recordSongPlays("ID-3", 5);
-            assertThat(cache.getPlaysForSong("ID-1"), is(4));
-            assertThat(cache.getPlaysForSong("ID-9"), is(-1));
-            assertThat(cache.getTopNSongsPlayed(2), contains("ID-3",
-                    "ID-1"));
-            assertThat(cache.getTopNSongsPlayed(0), is(empty()));
-            System.out.println("Thread1 waiting");
-            wait(5000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        } finally {
-            notifyAll();
-            System.out.println("Thread1 going");
-            assertThat(cache.getTopNSongsPlayed(2), contains("ID-9",
-                    "ID-3"));
         }
-
+        assertThat(cache.getTopNSongsPlayed(0), is(empty()));
+        assertThat(cache.getTopNSongsPlayed(2), contains("ID-9",
+                "ID-3"));
     }
 }

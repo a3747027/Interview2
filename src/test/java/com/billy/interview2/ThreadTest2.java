@@ -16,13 +16,11 @@ public class ThreadTest2 implements Runnable{
     public void run() {
         try {
             System.out.println("Thread2 waiting");
-            wait(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }finally {
-            notifyAll();
-            System.out.println("Thread2 going");
-            cache.recordSongPlays("ID-9", 10);
         }
+        System.out.println("Thread2 going");
+        cache.recordSongPlays("ID-9", 10);
     }
 }

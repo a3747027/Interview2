@@ -8,7 +8,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.empty;
 
-@SpringBootTest
 class Interview2ApplicationTests {
 
     @Test
