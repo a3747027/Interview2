@@ -1,5 +1,7 @@
 package com.billy.interview2;
 
+import org.junit.runner.RunWith;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
@@ -23,11 +25,12 @@ public class ThreadTest1 implements Runnable{
         assertThat(cache.getTopNSongsPlayed(2), contains("ID-3",
                 "ID-1"));
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         assertThat(cache.getTopNSongsPlayed(0), is(empty()));
+        System.out.println("Thread1 printing added ID-9 from Thread2");
         assertThat(cache.getTopNSongsPlayed(2), contains("ID-9",
                 "ID-3"));
     }

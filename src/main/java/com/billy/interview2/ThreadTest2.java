@@ -11,7 +11,7 @@ public class ThreadTest2 implements Runnable{
     public void run() {
         try {
             System.out.println("Thread2 waiting");
-            Thread.sleep(1000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
