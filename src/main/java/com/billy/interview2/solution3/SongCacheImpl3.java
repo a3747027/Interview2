@@ -14,11 +14,10 @@ public class SongCacheImpl3 implements SongCache {
 
     @Override
     public void recordSongPlays(String songId, int numPlays) {
-        AtomicLong val = null;
         if(!songPlayNum.containsKey(songId)) {
             synchronized (songId.intern()) {
                 if(!songPlayNum.containsKey(songId)) {
-                    val = new AtomicLong(0);
+                    AtomicLong val = new AtomicLong(0);
                     songPlayNum.put(songId, val);
                 }
             }
@@ -28,10 +27,7 @@ public class SongCacheImpl3 implements SongCache {
 
     @Override
     public int getPlaysForSong(String songId) {
-        if (songPlayNum.containsKey(songId)) {
-            return songPlayNum.get(songId).intValue();
-        }
-        return -1;
+        return songPlayNum.getOrDefault(songId,new AtomicLong(-1)).intValue();
     }
 
     @Override
