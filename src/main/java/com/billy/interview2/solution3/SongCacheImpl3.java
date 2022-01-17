@@ -1,17 +1,17 @@
-package com.billy.interview2;
+package com.billy.interview2.solution3;
+
+import com.billy.interview2.SongCache;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
 
-public class SongCacheImpl implements SongCache{
+public class SongCacheImpl3 implements SongCache {
     //using lazy loading, final for?
     //difference between AtomicLong and AtomicInteger, should I use LongAdder?
     //difference between instance in scope or instance in constructor?
     private final ConcurrentHashMap<String, AtomicLong> cache;
-    public SongCacheImpl() {
+    public SongCacheImpl3() {
         this.cache = new ConcurrentHashMap<>();
     }
 
