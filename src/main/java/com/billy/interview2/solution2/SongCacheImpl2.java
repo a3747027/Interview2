@@ -18,19 +18,6 @@ public class SongCacheImpl2 implements SongCache {
         so we can use atomic integer to count, but the initialization is not thread safe we need synchronzied
      */
     @Override
-//    public void recordSongPlays(String songId, int numPlays) {
-//            if (!songPlayNum.containsKey(songId)) {
-//                //we only synchronized current songid string, instead of synchronized whole map or method
-//                //and we use double check way to initialize our atomic long obj
-//                //we synchronized string.intern() to avoid different instance of string
-//                //string may not be stored in constant string pool yet if we use new String(char[])
-//                synchronized (songId.intern()) {
-//                        songPlayNum.put(songId, new AtomicLong(numPlays));
-//                }
-//            } else {
-//                    songPlayNum.get(songId).addAndGet(numPlays);
-//            }
-//    }
     public void recordSongPlays(String songId, int numPlays) {
         AtomicLong val = null;
         if(!songPlayNum.containsKey(songId)) {

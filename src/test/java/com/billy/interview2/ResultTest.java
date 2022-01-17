@@ -1,10 +1,6 @@
 package com.billy.interview2;
-
-import com.billy.interview2.solution1.SongCacheImpl1;
 import com.billy.interview2.solution2.SongCacheImpl2;
 import com.billy.interview2.solution3.SongCacheImpl3;
-import org.junit.Assert;
-import org.junit.Test;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Assertions;
 
@@ -29,7 +25,7 @@ public class ResultTest {
     //use @BeforeEach to initialize
     @BeforeEach
     public void setUp(){
-        cache = new SongCacheImpl2();
+        cache = new SongCacheImpl3();
     }
 
     //use @AfterAll to shutdown thread pool
@@ -53,7 +49,7 @@ public class ResultTest {
 
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(1000)
     public void multiThreadingTest() throws NullPointerException{
         //SongCache cache = new SongCacheImpl2();
         List<CompletableFuture> futures = new ArrayList<>();
