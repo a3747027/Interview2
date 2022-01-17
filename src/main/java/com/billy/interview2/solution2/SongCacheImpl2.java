@@ -25,6 +25,7 @@ public class SongCacheImpl2 implements SongCache {
             //and we use double check way to initialize our atomic long obj
             //we synchronized string.intern() to avoid different instance of string
             //string may not be stored in constant string pool yet if we use new String(char[])
+            //using double check to achieve the thread safe.
             synchronized (songId.intern()) {
                 if(!songPlayNum.containsKey(songId)) {
                     val = new AtomicLong(0);

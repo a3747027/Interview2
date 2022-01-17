@@ -26,11 +26,13 @@ public class SongCacheImpl3 implements SongCache {
     }
 
     @Override
+    //using getOrDefault to simplify the steps.
     public int getPlaysForSong(String songId) {
         return songPlayNum.getOrDefault(songId,new AtomicLong(-1)).intValue();
     }
 
     @Override
+    // using stream to simplify the coding by sacrificing a little efficiency.
     public List<String> getTopNSongsPlayed(int n) {
         Object[] arrayAllSongs =
                 songPlayNum.entrySet().stream().sorted((e1, e2) -> e2.getValue().intValue() - e1.getValue().intValue())

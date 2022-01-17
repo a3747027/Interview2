@@ -6,7 +6,8 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class SongCacheImpl1 implements SongCache {
-
+    //TreeMap for storing the reverse sorted songId with the key of total number of playing times.
+    //ConcurrentHashMap for storing the songId with total number of playing times.
     private final TreeMap<Long, LinkedHashSet<String>> freqRank;
     private final Map<String, Long> songPlayNum;
 
@@ -16,15 +17,20 @@ public class SongCacheImpl1 implements SongCache {
     }
 
     @Override
+    // using synchronized to achieve the thread safe.
     public synchronized void recordSongPlays(String songId, int numPlays) {
+        // considering the situation that the numPlays is less than 0 with error input.
         if(numPlays < 0) {
             throw new IllegalArgumentException(songId + " song input numPlays is not valid : " + numPlays);
         }
         long preFreq = songPlayNum.getOrDefault(songId, 0l);
         long nextFreq = preFreq + numPlays;
+        // considering the overflow situation.
         if(nextFreq < 0) {
             throw new IllegalArgumentException("song play counts overflow");
         }
+        //if preFreq is not 0, the songId is stored in the linkList of TreeMap with preFreq.
+        //Because the total number of songId is updated to nextFreq, the preFreq does not contain songId any more.
         if(preFreq != 0) {
             freqRank.get(preFreq).remove(songId);
         }
@@ -45,6 +51,7 @@ public class SongCacheImpl1 implements SongCache {
     }
 
     @Override
+    //using synchronized to achieve thread safe.
     public synchronized List<String> getTopNSongsPlayed(int n) {
         if(n < 0) {
             throw new IllegalArgumentException("cannot get top songs played with input number : " + n);
