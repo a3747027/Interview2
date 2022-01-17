@@ -17,9 +17,9 @@ import java.util.concurrent.TimeUnit;
 
 public class ResultTest {
     //use @BeforeAll to initalize
-    static ExecutorService pool;
+    private static ExecutorService pool;
 
-    private SongCache cache = new SongCacheImpl2();
+    private SongCache cache;
 
     @BeforeAll
     public static void initExecutors()
@@ -50,14 +50,10 @@ public class ResultTest {
         Assertions.assertTrue(cache.getTopNSongsPlayed(2).contains("ID-3"));
         Assertions.assertTrue(cache.getTopNSongsPlayed(2).contains("ID-1"));
         Assertions.assertTrue(cache.getTopNSongsPlayed(0).isEmpty());
-//        System.out.println(cache.getPlaysForSong("ID-1") == 4);
-//        System.out.println(cache.getPlaysForSong("ID-9") == -1);
-//        System.out.println(cache.getTopNSongsPlayed(2).contains("ID-3"));
-//        System.out.println(cache.getTopNSongsPlayed(2).contains("ID-1"));
-//        System.out.println(cache.getTopNSongsPlayed(0).isEmpty());
+
     }
 
-    @RepeatedTest(10)
+    @RepeatedTest(100)
     public void multiThreadingTest() throws NullPointerException{
         //SongCache cache = new SongCacheImpl2();
         List<CompletableFuture> futures = new ArrayList<>();
@@ -73,10 +69,5 @@ public class ResultTest {
         Assertions.assertTrue(cache.getTopNSongsPlayed(2).contains("ID-3"));
         Assertions.assertTrue(cache.getTopNSongsPlayed(2).contains("ID-1"));
         Assertions.assertTrue(cache.getTopNSongsPlayed(0).isEmpty());
-//        System.out.println(cache.getPlaysForSong("ID-1") == 4);
-//        System.out.println(cache.getPlaysForSong("ID-9") == -1);
-//        System.out.println(cache.getTopNSongsPlayed(2).contains("ID-3"));
-//        System.out.println(cache.getTopNSongsPlayed(2).contains("ID-1"));
-//        System.out.println(cache.getTopNSongsPlayed(0).isEmpty());
     }
 }

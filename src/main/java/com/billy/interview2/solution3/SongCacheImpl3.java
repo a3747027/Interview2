@@ -20,7 +20,7 @@ public class SongCacheImpl3 implements SongCache {
         //https://blog.csdn.net/qq_34115899/article/details/83018870
         //use addAndGet to achieve thread safe
         if (cache.containsKey(songId)) {
-            cache.get(songId).addAndGet(numPlays);
+                cache.get(songId).addAndGet(numPlays);
         } else {
             //is there any situation to make the key of string changed?
             //https://www.cnblogs.com/Qian123/p/5707154.html
@@ -45,7 +45,10 @@ public class SongCacheImpl3 implements SongCache {
     }
 
     @Override
-    public synchronized List<String> getTopNSongsPlayed(int n) {
+    public List<String> getTopNSongsPlayed(int n) {
+        if(n < 0) {
+            throw new IllegalArgumentException("cannot get top songs played with input number : " + n);
+        }
         //is stream atomic?
         Object[] arrayAllSongs =
                 cache.entrySet().stream().sorted((e1, e2) -> e2.getValue().intValue() - e1.getValue().intValue())
